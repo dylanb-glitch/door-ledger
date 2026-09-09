@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seller Financing Property Sourcing</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap">
+<style>
+  :root{
+    --bg:#f4f6fb;
+    --surface:#ffffff;
+    --surface-2:#f4f6fb;
+    --border:#dde2ef;
+    --border-soft:#e8ecf6;
+    --ink:#252525;
+    --ink-dim:#555555;
+    --ink-faint:#8a8f9c;
+    --accent:#1b3b8f;
+    --accent-ink:#152f73;
+    --accent-soft:#e6ebfa;
+    --overdue:#a3372a;
+    --overdue-soft:#f7ded9;
+    --duesoon:#a3760c;
+    --duesoon-soft:#f6ecd2;
+    --needs:#1d7a73;
+    --needs-soft:#dcefed;
+    --done:#5c6470;
+    --done-soft:#e7e9f0;
+    --complete:#2e7d50;
+    --complete-soft:#dcefe2;
+    --hold:#6b4fa0;
+    --hold-soft:#e9e3f5;
+    --shadow: 0 1px 2px rgba(13,13,13,0.05), 0 10px 28px -14px rgba(27,59,143,0.22);
+    --radius: 8px;
+    --brand-dark:#0d0d0d;
+    --brand-panel:#0f1629;
+    --brand-ink:#f4f6fb;
+    --brand-muted:#93a3cc;
+    --brand-accent:#8aaae8;
+    --brand-accent-2:#7fa0e8;
+    --brand-rule:rgba(244,246,251,0.14);
+    --accent-contrast:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0d0d0d;
+      --surface:#0f1629;
+      --surface-2:#161f38;
+      --border:#293458;
+      --border-soft:#1c2544;
+      --ink:#f4f6fb;
+      --ink-dim:#b6c1e6;
+      --ink-faint:#7c88ab;
+      --accent:#8aaae8;
+      --accent-ink:#a9c1f0;
+      --accent-soft:#1c2b52;
+      --overdue:#e2695a;
+      --overdue-soft:#3a2320;
+      --duesoon:#d9a13f;
+      --duesoon-soft:#3a2f18;
+      --needs:#57b8ac;
+      --needs-soft:#123a35;
+      --done:#9aa6c4;
+      --done-soft:#1c2440;
+      --complete:#6fbf92;
+      --complete-soft:#1c2f24;
+      --hold:#a996d6;
+      --hold-soft:#271f3a;
+      --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 28px -14px rgba(0,0,0,0.6);
+      --accent-contrast:#0d1220;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0d0d0d;
+    --surface:#0f1629;
+    --surface-2:#161f38;
+    --border:#293458;
+    --border-soft:#1c2544;
+    --ink:#f4f6fb;
+    --ink-dim:#b6c1e6;
+    --ink-faint:#7c88ab;
+    --accent:#8aaae8;
+    --accent-ink:#a9c1f0;
+    --accent-soft:#1c2b52;
+    --overdue:#e2695a;
+    --overdue-soft:#3a2320;
+    --duesoon:#d9a13f;
+    --duesoon-soft:#3a2f18;
+    --needs:#57b8ac;
+    --needs-soft:#123a35;
+    --done:#9aa6c4;
+    --done-soft:#1c2440;
+    --complete:#6fbf92;
+    --complete-soft:#1c2f24;
+    --hold:#a996d6;
+    --hold-soft:#271f3a;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 28px -14px rgba(0,0,0,0.6);
+    --accent-contrast:#0d1220;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    background:
+      radial-gradient(1000px 520px at 12% -8%, var(--accent-soft) 0%, transparent 55%),
+      radial-gradient(900px 480px at 100% 0%, var(--needs-soft) 0%, transparent 50%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height:1.45;
+  }
+  ::selection{ background:var(--accent-soft); }
+  h1,h2,h3{ font-family:'Cormorant Garamond', Georgia, serif; font-weight:500; text-wrap:balance; margin:0; }
+  .eyebrow{ font-family:'DM Sans', sans-serif; font-weight:600; font-size:10.5px; text-transform:uppercase; letter-spacing:.18em; }
+  .num{ font-family:'DM Sans', sans-serif; font-variant-numeric: tabular-nums; }
+  .serif-num{ font-family:'Cormorant Garamond', Georgia, serif; font-variant-numeric: tabular-nums; }
+  button{ font-family:inherit; }
+  input,select,textarea{ font-family:inherit; }
+  a{ color:inherit; }
+
+  .app{ max-width:1180px; margin:0 auto; padding:24px 24px 80px; }
+
+  /* ---------- Header ---------- */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    margin-bottom:22px; flex-wrap:wrap;
+    background:var(--brand-dark);
+    border-radius:calc(var(--radius) + 4px);
+    padding:24px 28px;
+    position:relative;
+  }
+  .topbar::after{
+    content:""; position:absolute; top:0; right:0; bottom:0; width:120px;
+    border-top-right-radius:calc(var(--radius) + 4px); border-bottom-right-radius:calc(var(--radius) + 4px);
+    background:repeating-linear-gradient(-45deg, var(--brand-panel), var(--brand-panel) 8px, #142049 8px, #142049 16px);
+    -webkit-mask-image:linear-gradient(to left, rgba(0,0,0,.9), transparent);
+            mask-image:linear-gradient(to left, rgba(0,0,0,.9), transparent);
+    pointer-events:none;
+    z-index:0;
+  }
+  .brand{ display:flex; flex-direction:column; gap:6px; position:relative; z-index:1; }
+  .brand .eyebrow{ color:var(--brand-accent); }
+  .brand h1{ font-size:27px; font-weight:500; color:var(--brand-ink); line-height:1.18; }
+  .brand h1 em{ font-style:italic; color:var(--brand-accent-2); font-weight:400; }
+  .brand p{ margin:0; color:var(--brand-muted); font-size:13px; font-family:'DM Sans', sans-serif; }
+  .topbar-actions{ display:flex; align-items:center; gap:8px; position:relative; z-index:1; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:7px;
+    border-radius:6px; border:1px solid var(--border);
+    background:var(--surface); color:var(--ink);
+    padding:9px 15px; font-size:12px; font-weight:600;
+    text-transform:uppercase; letter-spacing:.09em;
+    cursor:pointer; transition:background .12s, border-color .12s, transform .05s;
+    white-space:nowrap;
+  }
+  .btn:hover{ background:var(--surface-2); }
+  .btn:active{ transform:translateY(1px); }
+  .btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .btn-primary{
+    background:var(--accent); border-color:var(--accent); color:var(--accent-contrast);
+  }
+  .btn-primary:hover{ background:var(--accent-ink); border-color:var(--accent-ink); }
+  .btn-icon{ padding:8px; width:34px; height:34px; justify-content:center; }
+  .btn-ghost{ background:transparent; border-color:transparent; }
+  .btn-ghost:hover{ background:var(--surface-2); }
+  .btn-danger{ color:var(--overdue); }
+  .topbar-actions .btn:not(.btn-primary){
+    background:transparent; border-color:var(--brand-rule); color:var(--brand-accent);
+  }
+  .topbar-actions .btn:not(.btn-primary):hover{ background:rgba(244,246,251,0.08); }
+  .topbar-actions .btn-primary{
+    background:var(--brand-accent-2); border-color:var(--brand-accent-2); color:#0d0d0d;
+  }
+  .topbar-actions .btn-primary:hover{ background:#98b6ee; border-color:#98b6ee; }
+
+  /* ---------- Stat strip ---------- */
+  .stats{
+    display:flex; flex-wrap:wrap; gap:10px;
+    margin-bottom:20px;
+  }
+  .stat{
+    flex:1 1 150px;
+    position:relative; overflow:hidden;
+    background:var(--stat-soft, var(--surface)); border:1px solid var(--border);
+    border-radius:var(--radius); padding:16px 14px 13px 16px;
+    cursor:pointer; text-align:left; box-shadow:var(--shadow);
+    transition:transform .08s, border-color .12s, box-shadow .12s;
+  }
+  .stat::before{
+    content:""; position:absolute; left:0; top:0; right:0; height:3px;
+    background:var(--stat-color, var(--ink-faint));
+  }
+  .stat:hover{ transform:translateY(-2px); box-shadow:0 1px 2px rgba(13,13,13,0.06), 0 14px 28px -14px var(--stat-color, rgba(27,59,143,0.35)); }
+  .stat.active{ border-color:var(--stat-color, var(--accent)); }
+  .stat .n{ font-family:'Cormorant Garamond', Georgia, serif; font-size:34px; font-weight:500; color:var(--stat-color, var(--ink)); line-height:1; font-variant-numeric:tabular-nums; }
+  .stat .lbl{ margin-top:7px; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-dim); }
+
+  /* ---------- Toolbar ---------- */
+  .toolbar{
+    display:flex; align-items:center; gap:10px; margin-bottom:14px; flex-wrap:wrap;
+  }
+  .search{
+    flex:1 1 220px; min-width:180px; position:relative;
+  }
+  .search input{
+    width:100%; padding:9px 12px 9px 34px; border-radius:6px;
+    border:1px solid var(--border); background:var(--surface); color:var(--ink);
+    font-size:13.5px;
+  }
+  .search input:focus{ outline:2px solid var(--accent); outline-offset:-1px; }
+  .search svg{ position:absolute; left:11px; top:50%; transform:translateY(-50%); opacity:.55; }
+  .chips{ display:flex; gap:6px; flex-wrap:wrap; }
+  .chip{
+    border:1px solid var(--border); background:transparent; color:var(--ink-dim);
+    padding:6px 12px; border-radius:999px; font-size:10.5px; font-weight:600; cursor:pointer;
+    text-transform:uppercase; letter-spacing:.1em;
+  }
+  .chip.active{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .dot{ width:7px; height:7px; border-radius:50%; background:var(--complete); flex-shrink:0; }
+
+  /* ---------- Table ---------- */
+  .tablewrap{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    overflow:auto; box-shadow:var(--shadow);
+  }
+  table{ width:100%; border-collapse:collapse; min-width:920px; }
+  thead th{
+    position:sticky; top:0; background:var(--surface-2); z-index:1;
+    text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--ink-dim); font-weight:700; padding:12px 14px; border-bottom:2px solid var(--border);
+    cursor:pointer; user-select:none; white-space:nowrap;
+  }
+  thead th:hover{ color:var(--accent); }
+  thead th .arrow{ opacity:.6; margin-left:3px; color:var(--accent); }
+  tbody tr{ border-bottom:1px solid var(--border-soft); cursor:pointer; transition:background .1s; }
+  tbody tr:nth-child(even){ background:var(--surface-2); }
+  tbody tr:last-child{ border-bottom:none; }
+  tbody tr:hover{ background:var(--accent-soft); }
+  tbody td{ padding:11px 14px; font-size:13.5px; vertical-align:middle; }
+  tbody td:first-child{ position:relative; }
+  tbody td:first-child::before{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--row-color, transparent);
+  }
+  .client-name{ font-weight:600; }
+  .client-sub{ color:var(--ink-faint); font-size:12px; margin-top:1px; }
+  .client-sub.copyable{ cursor:pointer; width:fit-content; border-radius:3px; padding:1px 3px; margin:0 0 0 -3px; transition:background .1s, color .1s; }
+  .client-sub.copyable:hover{ background:var(--accent-soft); color:var(--accent); }
+  .pill{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:4px 10px; border-radius:999px; font-size:10.5px; font-weight:700;
+    letter-spacing:.07em; text-transform:uppercase; white-space:nowrap;
+  }
+  .pill .dot{ width:6px; height:6px; }
+  .progress-wrap{ display:flex; align-items:center; gap:8px; }
+  .progress-track{ width:64px; height:6px; border-radius:4px; background:var(--surface-2); overflow:hidden; flex-shrink:0; }
+  .progress-fill{ height:100%; background:var(--accent); border-radius:4px; }
+  .due-days{ font-size:11.5px; color:var(--ink-faint); }
+  .row-actions{ display:flex; gap:4px; opacity:0; transition:opacity .1s; }
+  tbody tr:hover .row-actions{ opacity:1; }
+  .empty-state{ padding:60px 20px; text-align:center; color:var(--ink-faint); }
+
+  /* mobile cards */
+  .cards{ display:none; flex-direction:column; gap:10px; }
+  .card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:14px; box-shadow:var(--shadow); cursor:pointer;
+    border-left:3px solid var(--row-color, var(--border));
+  }
+  .card-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
+  .card-row{ display:flex; justify-content:space-between; margin-top:9px; font-size:12.5px; color:var(--ink-dim); }
+
+  @media (max-width: 760px){
+    .tablewrap{ display:none; }
+    .cards{ display:flex; }
+    .app{ padding:18px 14px 60px; }
+  }
+  @media (max-width: 480px){
+    .stat{ flex-basis:calc(50% - 5px); }
+    .stat .n{ font-size:26px; }
+    .stat .lbl{ font-size:9px; letter-spacing:.06em; }
+  }
+
+  /* ---------- Drawer ---------- */
+  .scrim{
+    position:fixed; inset:0; background:rgba(10,15,11,.35); backdrop-filter:blur(1px);
+    opacity:0; pointer-events:none; transition:opacity .18s; z-index:40;
+  }
+  .scrim.open{ opacity:1; pointer-events:auto; }
+  .drawer{
+    position:fixed; top:0; right:0; bottom:0; width:420px; max-width:92vw;
+    background:var(--surface); border-left:1px solid var(--border);
+    box-shadow:-16px 0 40px -20px rgba(0,0,0,.35);
+    transform:translateX(100%); transition:transform .2s ease; z-index:41;
+    display:flex; flex-direction:column;
+  }
+  .drawer.open{ transform:translateX(0); }
+  .drawer-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 18px; border-bottom:1px solid var(--border-soft); flex-shrink:0;
+  }
+  .drawer-head h2{ font-size:20px; font-weight:500; }
+  .drawer-body{ padding:16px 18px 24px; overflow-y:auto; flex:1; }
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:10.5px; font-weight:600; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); margin-bottom:6px; font-family:'DM Sans', sans-serif; }
+  .field-row{ display:flex; gap:10px; }
+  .field-row .field{ flex:1; }
+  .field input, .field textarea, .field select{
+    width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);
+    background:var(--bg); color:var(--ink); font-size:13.5px; font-family:'DM Sans', sans-serif;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus{ outline:2px solid var(--accent); outline-offset:-1px; }
+  .field textarea{ resize:vertical; min-height:70px; }
+  .field-with-action{ display:flex; gap:6px; }
+  .field-with-action input{ flex:1; }
+  .segmented{ display:flex; border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+  .seg-btn{
+    flex:1; padding:8px 10px; background:var(--bg); border:none;
+    border-right:1px solid var(--border); font-size:11.5px; font-weight:600;
+    text-transform:uppercase; letter-spacing:.07em; color:var(--ink-dim); cursor:pointer;
+    font-family:'DM Sans', sans-serif; transition:background .12s, color .12s;
+  }
+  .seg-btn:last-child{ border-right:none; }
+  .seg-btn:hover{ background:var(--surface-2); }
+  .seg-btn.active{ background:var(--accent); color:var(--accent-contrast); }
+  .summary-card{
+    background:var(--surface-2); border:1px solid var(--border-soft); border-radius:9px;
+    padding:4px 14px; margin-bottom:18px;
+  }
+  .summary-row{ display:flex; justify-content:space-between; align-items:center; font-size:11px; padding:10px 0; }
+  .summary-row span:first-child{ font-weight:600; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-faint); font-family:'DM Sans', sans-serif; }
+  .summary-row .val{ font-family:'Cormorant Garamond', Georgia, serif; font-size:18px; color:var(--ink); }
+  .summary-row + .summary-row{ border-top:1px solid var(--border); }
+  .drawer-foot{
+    padding:14px 18px; border-top:1px solid var(--border-soft);
+    display:flex; flex-direction:column; gap:8px; flex-shrink:0;
+  }
+  .drawer-foot-row{ display:flex; gap:8px; }
+  #holdBtn.on-hold{ background:var(--hold-soft); border-color:var(--hold); color:var(--hold); }
+
+  .confirm-scrim{
+    position:fixed; inset:0; background:rgba(10,15,11,.4); z-index:50;
+    display:none; align-items:center; justify-content:center; padding:20px;
+  }
+  .confirm-scrim.open{ display:flex; }
+  .confirm-box{
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:20px; max-width:340px; box-shadow:var(--shadow);
+  }
+  .confirm-box h3{ font-size:15px; margin-bottom:8px; }
+  .confirm-box p{ font-size:13px; color:var(--ink-dim); margin:0 0 16px; }
+  .confirm-actions{ display:flex; justify-content:flex-end; gap:8px; }
+
+  .toast{
+    position:fixed; bottom:22px; left:50%; transform:translateX(-50%) translateY(12px);
+    background:var(--ink); color:var(--bg); padding:10px 16px; border-radius:8px;
+    font-size:13px; opacity:0; pointer-events:none; transition:opacity .15s, transform .15s;
+    z-index:60; box-shadow:var(--shadow);
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  .banner{
+    background:var(--duesoon-soft); border:1px solid var(--duesoon); color:var(--accent-ink);
+    border-radius:9px; padding:10px 14px; font-size:12.5px; margin-bottom:16px; display:none;
+  }
+  .banner.show{ display:block; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="topbar">
+    <div class="brand">
+      <div class="eyebrow">Success with Section 8 · Client Roster</div>
+      <h1>Seller <em>Financing</em><br>Property Sourcing</h1>
+      <p>Property-sourcing follow-ups — who's due, who's overdue, who's covered.</p>
+    </div>
+    <div class="topbar-actions">
+      <button class="btn" id="exportBtn" title="Download names, emails, and phone numbers as a CSV">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        Download CSV
+      </button>
+      <button class="btn btn-primary" id="addBtn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        Add client
+      </button>
+    </div>
+  </div>
+
+  <div class="banner" id="fallbackBanner">Couldn't reach the database — check your internet connection. Changes here won't be saved until it reconnects.</div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="toolbar">
+    <div class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="Search name, email, phone, notes…">
+    </div>
+    <div class="chips" id="statusChips"></div>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th data-sort="name">Client<span class="arrow"></span></th>
+          <th data-sort="started">Started<span class="arrow"></span></th>
+          <th data-sort="progress">Doors<span class="arrow"></span></th>
+          <th data-sort="due">Next due<span class="arrow"></span></th>
+          <th data-sort="status">Status<span class="arrow"></span></th>
+          <th>Notes</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div class="empty-state" id="emptyState" style="display:none;">No clients match this view.</div>
+  </div>
+
+  <div class="cards" id="cards"></div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="drawer" id="drawer" role="dialog" aria-label="Client details">
+  <div class="drawer-head">
+    <h2 id="drawerTitle">New client</h2>
+    <button class="btn btn-icon btn-ghost" id="drawerClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body">
+    <div class="summary-card" id="summaryCard" style="display:none;"></div>
+
+    <div class="field">
+      <label for="fName">Client name</label>
+      <input type="text" id="fName" placeholder="Jane Smith">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="fEmail">Email</label>
+        <div class="field-with-action">
+          <input type="email" id="fEmail" placeholder="jane@email.com">
+          <button class="btn btn-icon" id="mailBtn" title="Email client" aria-label="Email client">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label for="fPhone">Phone</label>
+      <div class="field-with-action">
+        <input type="text" id="fPhone" placeholder="(555) 555-5555">
+        <button class="btn btn-icon" id="callBtn" title="Call client" aria-label="Call client">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="fStart">Start date</label>
+        <input type="date" id="fStart">
+      </div>
+      <div class="field">
+        <label for="fLastSent">Last property sent</label>
+        <input type="date" id="fLastSent">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="fTotal">Total doors (paid for)</label>
+        <input type="number" id="fTotal" min="0" step="1">
+      </div>
+      <div class="field">
+        <label for="fSent">Accepted so far</label>
+        <input type="number" id="fSent" min="0" step="1">
+      </div>
+    </div>
+    <div class="field">
+      <label>Property due every</label>
+      <div class="segmented" id="cadenceGroup">
+        <button type="button" class="seg-btn" data-value="30">Every 30 days</button>
+        <button type="button" class="seg-btn" data-value="45">Every 45 days</button>
+      </div>
+    </div>
+    <div class="field">
+      <label for="fNotes">Notes</label>
+      <textarea id="fNotes"></textarea>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <div class="drawer-foot-row">
+      <button class="btn" id="sentBtn" title="Counts toward their total doors — the next one is still due on the fixed schedule" style="flex:1;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Sent
+      </button>
+      <button class="btn" id="backupBtn" title="Removes one from their accepted total — use when a counted property gets rejected, so you still owe them that slot" style="flex:1;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+        Needs backup
+      </button>
+    </div>
+    <div class="drawer-foot-row">
+      <button class="btn btn-primary" id="saveBtn" style="flex:1;" title="Everything here saves automatically as you type">Done</button>
+      <button class="btn btn-icon" id="holdBtn" title="Put on hold" aria-label="Put on hold">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      </button>
+      <button class="btn btn-icon btn-danger" id="deleteBtn" title="Delete client" aria-label="Delete client">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="confirm-scrim" id="confirmScrim">
+  <div class="confirm-box">
+    <h3 id="confirmTitle">Delete this client?</h3>
+    <p id="confirmBody">This removes them from the ledger for good. This can't be undone.</p>
+    <div class="confirm-actions">
+      <button class="btn" id="confirmCancel">Cancel</button>
+      <button class="btn btn-primary" id="confirmOk" style="background:var(--overdue); border-color:var(--overdue);">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var STATUS_META = {
+    'OVERDUE':        { label:'Overdue',        color:'var(--overdue)',  soft:'var(--overdue-soft)', rank:0 },
+    'DUE SOON':       { label:'Due soon',       color:'var(--duesoon)',  soft:'var(--duesoon-soft)', rank:1 },
+    'NEEDS PROPERTY': { label:'Needs property', color:'var(--needs)',    soft:'var(--needs-soft)',   rank:2 },
+    'DONE FOR NOW':   { label:'Done for now',   color:'var(--done)',     soft:'var(--done-soft)',    rank:3 },
+    'COMPLETE':       { label:'Complete',       color:'var(--complete)', soft:'var(--complete-soft)',rank:4 },
+    'HOLD':           { label:'On hold',        color:'var(--hold)',     soft:'var(--hold-soft)',    rank:5 }
+  };
+
+  var STAT_TILES = [
+    { key:'TOTAL',           label:'Total clients' },
+    { key:'ACTIVE',          label:'Active clients' },
+    { key:'NEEDS PROPERTY',  label:'Needs property' },
+    { key:'DONE FOR NOW',    label:'Done for now' },
+    { key:'COMPLETE',        label:'Complete' },
+    { key:'DUE SOON',        label:'Due soon' },
+    { key:'OVERDUE',         label:'Overdue' }
+  ];
+
+  var SEED_CLIENTS = [{"id": "c1", "name": "Bryce Brick", "email": "bbrick789@gmail.com", "phone": "(417) 430-1951", "startDate": "2026-03-26", "totalDoors": 3.0, "propertiesSent": 1.0, "notes": "Wants only St. Louis deals and doesn\u2019t care if it takes longer (3\u20136 months for all deals)."}, {"id": "c2", "name": "Emmanuel Asobo", "email": "Manuasobo@gmail.com", "phone": "(301) 529-5650", "startDate": "2026-03-26", "totalDoors": 3.0, "propertiesSent": 2.0, "notes": "real 2"}, {"id": "c3", "name": "Carrol Lovato", "email": "carrol.lovato@gmail.com", "phone": "", "startDate": "2026-05-11", "totalDoors": 5.0, "propertiesSent": 2.0, "notes": "45 wait to send"}, {"id": "c4", "name": "Shemar McCutchen", "email": "shemar.mccutchen@gmail.com", "phone": "(908) 285-1679", "startDate": "2026-06-10", "totalDoors": 11.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c5", "name": "Rodney I", "email": "irodney65@yahoo.com", "phone": "(808) 747-7428", "startDate": "2026-05-14", "totalDoors": 4.0, "propertiesSent": 3.0, "notes": "actually txt"}, {"id": "c6", "name": "John O'Donohue", "email": "john.odonohue@gmail.com", "phone": "", "startDate": "2026-07-14", "totalDoors": 4.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c7", "name": "Sonny Underwood", "email": "uulala344@gmail.com", "phone": "(817 760-3648", "startDate": "2026-03-19", "totalDoors": 6.0, "propertiesSent": 5.0, "notes": "Wants text - landlord Friendly specific markets . real 5"}, {"id": "c8", "name": "Ivan Gutierrez", "email": "eivang1981@gmail.com", "phone": "(713) 292-8015", "startDate": "2026-03-19", "totalDoors": 6.0, "propertiesSent": 5.0, "notes": ""}, {"id": "c9", "name": "Joann Moore", "email": "joann-m@live.com", "phone": "", "startDate": "2026-07-17", "totalDoors": 3.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c10", "name": "Cody Graffice", "email": "cgraffice@gmail.com", "phone": "(419) 239-8330", "startDate": "2026-04-20", "totalDoors": 12.0, "propertiesSent": 4.0, "notes": "45 days real 10"}, {"id": "c11", "name": "Christine Applyby", "email": "3applebys@gmail.com", "phone": "", "startDate": "2026-06-19", "totalDoors": 4.0, "propertiesSent": 2.0, "notes": "45 real 3"}, {"id": "c12", "name": "Vana Decayo", "email": "vanalynned@gmail.com", "phone": "", "startDate": "2026-08-18", "totalDoors": 2.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c13", "name": "Josh Burstein", "email": "joshburstein@kw.com", "phone": "(845) 282-4667", "startDate": "2026-03-22", "totalDoors": 6.0, "propertiesSent": 5.0, "notes": "No detroit or Memphis. Wants high CF. neeeds back up"}, {"id": "c14", "name": "Sam Austgen", "email": "ssaustgen@gmail.com", "phone": "(317)-438-3352", "startDate": "2026-07-21", "totalDoors": 3.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c15", "name": "Joey Peery", "email": "info@sec8group.com", "phone": "(602) 960-5515", "startDate": "2026-05-24", "totalDoors": 10.0, "propertiesSent": 3.0, "notes": "45 days"}, {"id": "c16", "name": "Ashley Gifford", "email": "ashleyngifford23@gmail.com", "phone": "", "startDate": "2026-08-22", "totalDoors": 2.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c17", "name": "Onazi Abdullahi", "email": "daudabdullahi36@gmail.com", "phone": "", "startDate": "2026-06-25", "totalDoors": 10.0, "propertiesSent": 2.0, "notes": "45 actually text"}, {"id": "c18", "name": "Frank Polk", "email": "b.polksr31@gmail.com", "phone": "(773) 841-9672", "startDate": "2026-07-25", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c19", "name": "Patricio Castro", "email": "PatricioCastrojr@gmail.com", "phone": "", "startDate": "2026-08-24", "totalDoors": 10.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c20", "name": "Noman Chaudhry", "email": "nomanc54@gmail.com", "phone": "", "startDate": "2026-08-24", "totalDoors": 2.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c21", "name": "Maria Danolo", "email": "dr_bingdench@yahoo.com", "phone": "(714) 519-1892", "startDate": "2026-03-28", "totalDoors": 6.0, "propertiesSent": 5.0, "notes": ""}, {"id": "c22", "name": "Jim Siolos", "email": "jimsiolos@gmail.com", "phone": "", "startDate": "2026-07-27", "totalDoors": 3.0, "propertiesSent": 1.0, "notes": ""}, {"id": "c23", "name": "Dany Alissa", "email": "dannyalissa55@gmail.com", "phone": "(714)-399-5662", "startDate": "2026-07-28", "totalDoors": 3.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c24", "name": "Charles Brown", "email": "browncarlito@gmail.com", "phone": "(937) 532-6356", "startDate": "2026-07-28", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45 Send it to Jared"}, {"id": "c25", "name": "Victor Garduno", "email": "elexitoestaenmi@gmail.com", "phone": "(213) 479-1635", "startDate": "2026-07-29", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c26", "name": "Michael Degen", "email": "degenmike2@gmail.com", "phone": "(561) 859-3191", "startDate": "2026-07-29", "totalDoors": 10.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c27", "name": "Van Ardon", "email": "ardonv@gmail.com", "phone": "(561) 644-3928", "startDate": "2026-07-29", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c28", "name": "Eddie Curiel", "email": "alec112196@att.net", "phone": "", "startDate": "2026-07-30", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c29", "name": "Dave Frost", "email": "wildchild220@hotmail.com", "phone": "(201) 538-2130", "startDate": "2026-06-01", "totalDoors": 10.0, "propertiesSent": 3.0, "notes": "Treat good"}, {"id": "c30", "name": "Eleuterio Moreno", "email": "morenojr89@gmail.com", "phone": "(956) 784-1784", "startDate": "2026-06-03", "totalDoors": 4.0, "propertiesSent": 3.0, "notes": ""}, {"id": "c31", "name": "Paul tran", "email": "manchester2350@aol.com", "phone": "(513) 909-5176", "startDate": "2026-09-01", "totalDoors": 10.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c32", "name": "Colton Callaway", "email": "callaway36fox@gmail.com", "phone": "", "startDate": "2026-09-01", "totalDoors": 5.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c33", "name": "Alina Goodman", "email": "a_gordin@yahoo.com", "phone": "(847) 208-9656", "startDate": "2026-09-01", "totalDoors": 5.0, "propertiesSent": 0.0, "notes": ""}, {"id": "c34", "name": "Julio Alvarez", "email": "juliowldrule@gmail.com", "phone": "", "startDate": "2026-08-03", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "Actually Text"}, {"id": "c35", "name": "Rosalyn Torres", "email": "grosalynn@hotmail.com", "phone": "(602) 803-3010", "startDate": "2026-09-03", "totalDoors": 2.0, "propertiesSent": 0.0, "notes": ""}, {"id": "c36", "name": "George Pratt", "email": "georgepratt67@gmail.com", "phone": "", "startDate": "2026-08-05", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c37", "name": "Shreyas Chaturvedula", "email": "chshreyas03@gmail.com", "phone": "(781) 491-6978", "startDate": "2026-04-11", "totalDoors": 12.0, "propertiesSent": 5.0, "notes": "send afer sep 7th"}, {"id": "c38", "name": "Ed Doran", "email": "doraninc@aol.com", "phone": "", "startDate": "2026-06-10", "totalDoors": 4.0, "propertiesSent": 3.0, "notes": "45 real 2 actually TEXT"}, {"id": "c39", "name": "Alison Burkhardt", "email": "alburk8@gmail.com", "phone": "434-247-0769", "startDate": "2026-08-11", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c40", "name": "Danielle Mawobe", "email": "daniellemawobe@gmail.com", "phone": "", "startDate": "2026-08-13", "totalDoors": 10.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c41", "name": "Fernando Ugarte", "email": "fau2050@gmail.com", "phone": "(415) 716-3908", "startDate": "2026-04-16", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "45 Days"}, {"id": "c42", "name": "Shaneeka Turner", "email": "turner.shaneeka@aol.com", "phone": "(718) 502-2504", "startDate": "2026-04-18", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "45 Days"}, {"id": "c43", "name": "Ulises Chamorro", "email": "uli862001@gmail.com", "phone": "(747) 294-2208", "startDate": "2026-06-19", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45 - wants text"}, {"id": "c44", "name": "Xander Saponte", "email": "alexandersaponte@gmail.com", "phone": "", "startDate": "2026-04-20", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "45 days real 4"}, {"id": "c45", "name": "Frank Necatera", "email": "frankseliteraceparts@gmail.com", "phone": "", "startDate": "2026-06-24", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c46", "name": "Aoko Nyagwegwe", "email": "aokonyagwegwe@yahoo.com", "phone": "(267) 773-0613", "startDate": "2026-03-27", "totalDoors": 5.0, "propertiesSent": 5.0, "notes": ""}, {"id": "c47", "name": "Brooklyn Bevans", "email": "brooklynbevans@gmail.com", "phone": "(571) 233-0914", "startDate": "2026-07-02", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c48", "name": "Karen Irvin", "email": "Dirvini@live.com", "phone": "(301) 613-8110", "startDate": "2026-07-07", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c49", "name": "Debra Hartwig", "email": "debhartwig@yahoo.com", "phone": "775-777-5862", "startDate": "2026-07-10", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c50", "name": "Eva Noble", "email": "evacnoble@gmail.com", "phone": "(435) 938-8125", "startDate": "2026-06-12", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": "real 1"}, {"id": "c51", "name": "Joey Fuchs", "email": "jfuchs123@gmail.com", "phone": "(919) 780-7248", "startDate": "2026-08-12", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "Needs property by end of Aug"}, {"id": "c52", "name": "Ruzanna Hoove", "email": "ruzhoov@gmail.com", "phone": "(916) 413-5064", "startDate": "2026-06-29", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "45 Hold off for now real 5"}, {"id": "c53", "name": "Guy Bibbs", "email": "guybibbs1@gmail.com", "phone": "(312) 656-6412", "startDate": "2026-03-29", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": ""}, {"id": "c54", "name": "Daniel J Perez", "email": "damienjavierperez0311@gmail.com", "phone": "", "startDate": "2026-06-24", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c55", "name": "Viviana Martinez", "email": "vivi.martinez53@gmail.com", "phone": "(949) 929-6553", "startDate": "2026-05-01", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": "45 Then 60/60 - Text"}, {"id": "c56", "name": "Frank Maccedo", "email": "fmaccedo@gmail.com", "phone": "(786) 302-3739", "startDate": "2026-04-03", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "real 3"}, {"id": "c57", "name": "Brian Korner", "email": "bkorner77@gmail.com", "phone": "(631) 805-0655", "startDate": "2026-03-06", "totalDoors": 5.0, "propertiesSent": 5.0, "notes": "wants a text when aproperty is sent to him"}, {"id": "c58", "name": "Tristen Tyler", "email": "Tylertristen78@icloud.com", "phone": "(817) 559-5573", "startDate": "2026-04-14", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "45 days"}, {"id": "c59", "name": "Donovan", "email": "donovanjadams@gmail.com", "phone": "(310) 272-4529", "startDate": "2026-04-22", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c60", "name": "Evan Alcala", "email": "ejalcala9@gmail.com", "phone": "(916) 833-7910", "startDate": "2026-04-15", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": "45 Days"}, {"id": "c61", "name": "Ivan Cruz", "email": "ivancruz7991@gmail.com", "phone": "(646-496-5158", "startDate": "2026-03-31", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": ""}, {"id": "c62", "name": "Joshua Yankunze", "email": "joshuayankunzee@gmail.com", "phone": "(325) 794-7301", "startDate": "2026-05-05", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45 days -"}, {"id": "c63", "name": "Conner Smyth", "email": "connersmyth41@gmail.com", "phone": "(469) 534-9496", "startDate": "2026-06-04", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "dont send prop till ~7 days before due"}, {"id": "c64", "name": "Garima Mullick", "email": "garimamullick@gmail.com", "phone": "", "startDate": "2026-05-07", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c65", "name": "Jordan Weinstein", "email": "jnweinstein25@gmail.com", "phone": "(602) 810-3336", "startDate": "2026-03-08", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "Did not want the first property sent to him due to them not answering and the low cash flow, so he wants a backup property. Got a 30-day extension and promised him another property in return.\nReal 3 properties"}, {"id": "c66", "name": "Jack Large", "email": "jlarge@nextjensports.com", "phone": "", "startDate": "2026-03-08", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "Sent backup"}, {"id": "c67", "name": "Omar Ulanday", "email": "omar_41281@yahoo.com", "phone": "(571) 643-2731", "startDate": "2026-03-26", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": ""}, {"id": "c68", "name": "Reggie Tangonan", "email": "reggiethatsme1@hotmail.com", "phone": "(310) 220-7221", "startDate": "2026-04-29", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c69", "name": "Adam T", "email": "at3saad@gmail.com", "phone": "(313) 799-8310", "startDate": "2026-04-16", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45 Days"}, {"id": "c70", "name": "Dupree Cook", "email": "bishopdupreecook@aol.com", "phone": "(251) 895-4415", "startDate": "2026-04-18", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45 Days"}, {"id": "c71", "name": "Daquan Dandridge", "email": "daquandandridge3@gmail.com", "phone": "(240) 743-7539", "startDate": "2026-03-01", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": ""}, {"id": "c72", "name": "Alex Shcherbina", "email": "ashcherbina05@gmail.com", "phone": "(660) 287-5427", "startDate": null, "totalDoors": 10.0, "propertiesSent": 1.0, "notes": "Will let me know when to start"}, {"id": "c73", "name": "David Gilinger", "email": "davidgilinger@gmail.com", "phone": "", "startDate": "2026-03-20", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": ""}, {"id": "c74", "name": "Jacob Chavez", "email": "jacobchavez3721@gmail.com", "phone": "(909) 282-7270", "startDate": "2026-03-07", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "Said the first property was sold and wants a backup. Happened on Easter."}, {"id": "c75", "name": "Tyrone Campbell", "email": "tyreckless123@gmail.com", "phone": "(561) 889-7829", "startDate": "2026-03-07", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": ""}, {"id": "c76", "name": "Riley Mcgregor", "email": "rileymcgregor0@gmail.com", "phone": "(631) 377-2544", "startDate": "2026-03-11", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": ""}, {"id": "c77", "name": "Josef Eid", "email": "josefeid21@gmail.com", "phone": "(925) 325-6960", "startDate": "2026-03-13", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "Sent him a property and he did an inspection, which came back pretty bad. Even though we can\u2019t control the inspection results, I said I would make an exception and send a backup property."}, {"id": "c78", "name": "Mark Holder", "email": "holderhomes.mgmt@gmail.com", "phone": "(954) 593-0632", "startDate": "2026-03-02", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "Sent a property and said it was already sold. Then sent him a backup and it was sold again"}, {"id": "c79", "name": "Richard Nunez", "email": "ricknunez760@gmail.com", "phone": "(760) 504-5163", "startDate": "2026-04-01", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": ""}, {"id": "c80", "name": "Duane Roots", "email": "daroots12@gmail.com", "phone": "(310) 402-7856", "startDate": "2026-03-18", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": ""}, {"id": "c81", "name": "Oscar Reyes", "email": "osethebrose@gmail.com", "phone": "(818) 800-2782", "startDate": null, "totalDoors": 10.0, "propertiesSent": 0.0, "notes": "Will let me know when he wants to start"}, {"id": "c82", "name": "Madden Telles", "email": "maddentelles@yahoo.com", "phone": "(774) 644-2129", "startDate": "2026-03-16", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "Send a backup within 30 days of 4\\30"}, {"id": "c83", "name": "Courtney Bonin", "email": "courtneybonin@hotmail.com", "phone": "(240) 209-0039", "startDate": null, "totalDoors": 1.0, "propertiesSent": 0.0, "notes": "Will let me know when she wants to start"}];
+  var SEED_SETTINGS = { sendEveryDays:30, dueSoonDays:7, needsPropertyDays:30 };
+
+  var state = {
+    clients: [],
+    settings: SEED_SETTINGS,
+    liveClients: false,
+    liveSettings: false,
+    search: '',
+    statusFilter: 'ALL',
+    sortKey: 'urgency',
+    sortDir: 'asc',
+    activeId: null,
+    isNew: false
+  };
+
+  var SUPABASE_URL = 'https://afimnakyfmkvnglxocrx.supabase.co';
+  var SUPABASE_ANON_KEY = 'sb_publishable_wEWXZVRxKqfWXzeoIgtjxA_SsQ_T2ru';
+  var CLIENTS_TABLE = 'clients';
+  var db = null; // true once the first successful fetch confirms the connection
+
+  function toDbRow(c){
+    return {
+      name: c.name,
+      email: c.email,
+      phone: c.phone,
+      start_date: c.startDate,
+      last_sent_date: c.lastSentDate,
+      total_doors: c.totalDoors,
+      properties_sent: c.propertiesSent,
+      cadence_days: c.cadenceDays,
+      notes: c.notes,
+      on_hold: !!c.onHold
+    };
+  }
+  function fromDbRow(row){
+    return {
+      id: row.id,
+      name: row.name || '',
+      email: row.email || '',
+      phone: row.phone || '',
+      startDate: row.start_date,
+      lastSentDate: row.last_sent_date,
+      totalDoors: row.total_doors,
+      propertiesSent: row.properties_sent,
+      cadenceDays: row.cadence_days,
+      notes: row.notes || '',
+      onHold: !!row.on_hold
+    };
+  }
+
+  function $(id){ return document.getElementById(id); }
+
+  function parseDate(s){
+    if(!s) return null;
+    var parts = s.split('-');
+    if(parts.length !== 3) return null;
+    return new Date(parseInt(parts[0],10), parseInt(parts[1],10)-1, parseInt(parts[2],10));
+  }
+  function addDays(date, days){
+    var d = new Date(date.getTime());
+    d.setDate(d.getDate() + days);
+    return d;
+  }
+  function startOfToday(){
+    var t = new Date();
+    return new Date(t.getFullYear(), t.getMonth(), t.getDate());
+  }
+  function daysBetween(a, b){
+    return Math.round((a.getTime() - b.getTime()) / 86400000);
+  }
+  function fmtDate(d){
+    if(!d) return '—';
+    return d.toLocaleDateString(undefined, { month:'short', day:'numeric', year:'numeric' });
+  }
+  function toISO(d){
+    if(!d) return null;
+    var y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
+    return y+'-'+m+'-'+day;
+  }
+  function formatPhoneDigits(digits){
+    var len = digits.length;
+    if(len === 0) return '';
+    if(len < 4) return '('+digits;
+    if(len < 7) return '('+digits.slice(0,3)+') '+digits.slice(3);
+    return '('+digits.slice(0,3)+') '+digits.slice(3,6)+'-'+digits.slice(6);
+  }
+  function handlePhoneInput(e){
+    var input = e.target;
+    var digits = input.value.replace(/\D/g,'').slice(0,10);
+    var prevLen = parseInt(input.getAttribute('data-prev-len')||'0',10);
+    if(e.inputType === 'deleteContentBackward' && digits.length === prevLen && digits.length > 0){
+      digits = digits.slice(0,-1);
+    }
+    input.setAttribute('data-prev-len', String(digits.length));
+    input.value = formatPhoneDigits(digits);
+  }
+  function escapeHtml(s){
+    return String(s==null?'':s).replace(/[&<>"']/g, function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+  function csvEscape(v){
+    var s = String(v==null ? '' : v);
+    if(/[",\r\n]/.test(s)){ s = '"'+s.replace(/"/g,'""')+'"'; }
+    return s;
+  }
+  function exportClientsCsv(){
+    var rows = [['Name','Email','Phone']];
+    state.clients.forEach(function(c){
+      rows.push([c.name||'', c.email||'', c.phone||'']);
+    });
+    var csv = rows.map(function(r){ return r.map(csvEscape).join(','); }).join('\r\n');
+    var blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'clients.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    showToast('Downloaded clients.csv');
+  }
+  function fallbackCopy(text){
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    } catch(e){ return false; }
+  }
+  function copyToClipboard(text, label){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){
+        showToast('Copied '+label);
+      }).catch(function(){
+        showToast(fallbackCopy(text) ? ('Copied '+label) : 'Could not copy — select it manually');
+      });
+    } else {
+      showToast(fallbackCopy(text) ? ('Copied '+label) : 'Could not copy — select it manually');
+    }
+  }
+  function contactLines(c){
+    var lines = [];
+    if(c.email) lines.push('<div class="client-sub copyable" data-copy="'+escapeHtml(c.email)+'" data-copy-label="email" title="Click to copy">'+escapeHtml(c.email)+'</div>');
+    if(c.phone) lines.push('<div class="client-sub copyable" data-copy="'+escapeHtml(c.phone)+'" data-copy-label="phone number" title="Click to copy">'+escapeHtml(c.phone)+'</div>');
+    return lines.join('');
+  }
+
+  function computeDerived(client, settings){
+    var sent = Number(client.propertiesSent) || 0;
+    var total = Number(client.totalDoors) || 0;
+    var cadence = Number(client.cadenceDays) || settings.sendEveryDays;
+    if(total > 0 && sent >= total){
+      return { status:'COMPLETE', nextDueBy:null, daysUntilDue:null, cadence:cadence };
+    }
+    if(client.onHold){
+      return { status:'HOLD', nextDueBy:null, daysUntilDue:null, cadence:cadence };
+    }
+    var start = parseDate(client.startDate);
+    if(!start || total <= 0){
+      return { status:'DONE FOR NOW', nextDueBy:null, daysUntilDue:null, cadence:cadence };
+    }
+    // Fixed slots from the start date: property N is due at start + N*cadence,
+    // regardless of exactly when the previous one went out. Sending one a
+    // little early or late doesn't push later slots around.
+    var nextDueBy = addDays(start, (sent + 1) * cadence);
+    var today = startOfToday();
+    var daysUntilDue = daysBetween(nextDueBy, today);
+    var status;
+    var needsWindow = Math.max(settings.needsPropertyDays, cadence);
+    if(daysUntilDue < 0) status = 'OVERDUE';
+    else if(daysUntilDue <= settings.dueSoonDays) status = 'DUE SOON';
+    else if(daysUntilDue <= needsWindow) status = 'NEEDS PROPERTY';
+    else status = 'DONE FOR NOW';
+    return { status:status, nextDueBy:nextDueBy, daysUntilDue:daysUntilDue, cadence:cadence };
+  }
+
+  function enrich(list){
+    return list.map(function(c){
+      var d = computeDerived(c, state.settings);
+      return Object.assign({}, c, d);
+    });
+  }
+
+  function showToast(msg){
+    var t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(showToast._h);
+    showToast._h = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+  }
+
+  function setSyncLabel(){
+    if(db && state.liveClients){
+      $('fallbackBanner').classList.remove('show');
+    } else if(!db){
+      $('fallbackBanner').classList.add('show');
+    }
+  }
+
+  /* ---------------- Rendering ---------------- */
+
+  function render(){
+    renderStats();
+    renderChips();
+    renderRows();
+  }
+
+  function counts(list){
+    var c = { TOTAL:0, ACTIVE:0, OVERDUE:0, 'DUE SOON':0, 'NEEDS PROPERTY':0, 'DONE FOR NOW':0, COMPLETE:0, HOLD:0 };
+    list.forEach(function(cl){
+      c.TOTAL++;
+      c[cl.status] = (c[cl.status]||0) + 1;
+      if(cl.status !== 'COMPLETE' && cl.status !== 'HOLD') c.ACTIVE++;
+    });
+    return c;
+  }
+
+  function renderStats(){
+    var enriched = enrich(state.clients);
+    var c = counts(enriched);
+    var wrap = $('stats');
+    wrap.innerHTML = '';
+    STAT_TILES.forEach(function(t){
+      var color = t.key === 'TOTAL' ? 'var(--ink)' : t.key === 'ACTIVE' ? 'var(--accent)' : (STATUS_META[t.key] ? STATUS_META[t.key].color : 'var(--ink-faint)');
+      var soft = t.key === 'TOTAL' ? 'var(--border-soft)' : t.key === 'ACTIVE' ? 'var(--accent-soft)' : (STATUS_META[t.key] ? STATUS_META[t.key].soft : 'var(--surface-2)');
+      var isActiveTile = t.key === 'TOTAL' ? state.statusFilter === 'ALL' : state.statusFilter === t.key;
+      var div = document.createElement('button');
+      div.className = 'stat' + (isActiveTile ? ' active' : '');
+      div.style.setProperty('--stat-color', color);
+      div.style.setProperty('--stat-soft', soft);
+      div.innerHTML = '<div class="n">'+(c[t.key]||0)+'</div><div class="lbl">'+t.label+'</div>';
+      div.addEventListener('click', function(){
+        state.statusFilter = t.key === 'TOTAL' ? 'ALL' : (state.statusFilter === t.key ? 'ALL' : t.key);
+        render();
+      });
+      wrap.appendChild(div);
+    });
+  }
+
+  function renderChips(){
+    var chips = [{key:'ALL', label:'All'}].concat(Object.keys(STATUS_META).map(function(k){
+      return { key:k, label:STATUS_META[k].label };
+    }));
+    var wrap = $('statusChips');
+    wrap.innerHTML = '';
+    chips.forEach(function(c){
+      var b = document.createElement('button');
+      var active = state.statusFilter === c.key;
+      b.className = 'chip' + (active ? ' active' : '');
+      b.textContent = c.label;
+      if(c.key !== 'ALL'){
+        var m = STATUS_META[c.key];
+        if(active){
+          b.style.background = m.color; b.style.borderColor = m.color; b.style.color = 'var(--accent-contrast)';
+        } else {
+          b.style.background = m.soft; b.style.borderColor = m.soft; b.style.color = m.color;
+        }
+      }
+      b.addEventListener('click', function(){ state.statusFilter = c.key; render(); });
+      wrap.appendChild(b);
+    });
+  }
+
+  function getVisible(){
+    var enriched = enrich(state.clients);
+    var q = state.search.trim().toLowerCase();
+    var filtered = enriched.filter(function(c){
+      if(state.statusFilter !== 'ALL' && state.statusFilter !== 'ACTIVE' && c.status !== state.statusFilter) return false;
+      if(state.statusFilter === 'ACTIVE' && c.status === 'COMPLETE') return false;
+      if(!q) return true;
+      return (c.name||'').toLowerCase().indexOf(q) > -1 ||
+             (c.email||'').toLowerCase().indexOf(q) > -1 ||
+             (c.phone||'').toLowerCase().indexOf(q) > -1 ||
+             (c.notes||'').toLowerCase().indexOf(q) > -1;
+    });
+    var dir = state.sortDir === 'asc' ? 1 : -1;
+    filtered.sort(function(a,b){
+      var k = state.sortKey;
+      if(k === 'urgency'){
+        var ra = STATUS_META[a.status].rank, rb = STATUS_META[b.status].rank;
+        if(ra !== rb) return (ra - rb);
+        var da = a.daysUntilDue==null ? Infinity : a.daysUntilDue;
+        var db_ = b.daysUntilDue==null ? Infinity : b.daysUntilDue;
+        return da - db_;
+      }
+      if(k === 'name') return a.name.localeCompare(b.name) * dir;
+      if(k === 'started'){
+        var sa = a.startDate||'', sb = b.startDate||'';
+        return sa.localeCompare(sb) * dir;
+      }
+      if(k === 'progress'){
+        var pa = (a.totalDoors? a.propertiesSent/a.totalDoors : 0);
+        var pb = (b.totalDoors? b.propertiesSent/b.totalDoors : 0);
+        return (pa - pb) * dir;
+      }
+      if(k === 'due'){
+        var xa = a.daysUntilDue==null ? Infinity : a.daysUntilDue;
+        var xb = b.daysUntilDue==null ? Infinity : b.daysUntilDue;
+        return (xa - xb) * dir;
+      }
+      if(k === 'status'){
+        return (STATUS_META[a.status].rank - STATUS_META[b.status].rank) * dir;
+      }
+      return 0;
+    });
+    return filtered;
+  }
+
+  function statusPill(status){
+    var m = STATUS_META[status];
+    return '<span class="pill" style="background:'+m.soft+'; color:'+m.color+';"><span class="dot" style="background:'+m.color+';"></span>'+m.label+'</span>';
+  }
+
+  function renderRows(){
+    var visible = getVisible();
+    var tbody = $('tbody');
+    var cards = $('cards');
+    tbody.innerHTML = '';
+    cards.innerHTML = '';
+    $('emptyState').style.display = visible.length ? 'none' : 'block';
+
+    visible.forEach(function(c){
+      var pct = c.totalDoors ? Math.min(100, Math.round((c.propertiesSent/c.totalDoors)*100)) : 0;
+      var dueLabel = c.nextDueBy ? fmtDate(c.nextDueBy) : '—';
+      var daysLabel = '';
+      if(c.daysUntilDue != null){
+        daysLabel = c.daysUntilDue < 0 ? (Math.abs(c.daysUntilDue)+'d overdue') : (c.daysUntilDue===0 ? 'today' : ('in '+c.daysUntilDue+'d'));
+      }
+
+      var tr = document.createElement('tr');
+      tr.style.setProperty('--row-color', STATUS_META[c.status].color);
+      tr.innerHTML =
+        '<td>'+
+          '<div class="client-name">'+escapeHtml(c.name)+'</div>'+
+          contactLines(c)+
+        '</td>'+
+        '<td class="num">'+(c.startDate ? fmtDate(parseDate(c.startDate)) : '—')+'</td>'+
+        '<td>'+
+          '<div class="progress-wrap">'+
+            '<div class="progress-track"><div class="progress-fill" style="width:'+pct+'%;"></div></div>'+
+            '<span class="num" style="font-size:12px; color:var(--ink-dim);">'+c.propertiesSent+'/'+c.totalDoors+'</span>'+
+          '</div>'+
+        '</td>'+
+        '<td><div class="num" style="font-size:13px;">'+dueLabel+'</div><div class="due-days">'+daysLabel+(daysLabel?' · ':'')+'every '+c.cadence+'d</div></td>'+
+        '<td>'+statusPill(c.status)+'</td>'+
+        '<td style="max-width:220px; color:var(--ink-dim); font-size:12.5px;"><div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">'+escapeHtml(c.notes||'—')+'</div></td>'+
+        '<td>'+
+          '<div class="row-actions">'+
+            '<button class="btn btn-icon btn-ghost row-sent" title="Mark as sent (open the card to send a backup instead)" aria-label="Mark as sent"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></button>'+
+          '</div>'+
+        '</td>';
+      tr.addEventListener('click', function(e){
+        if(e.target.closest('.row-sent')) return;
+        var copyEl = e.target.closest('.copyable');
+        if(copyEl){ copyToClipboard(copyEl.getAttribute('data-copy'), copyEl.getAttribute('data-copy-label')); return; }
+        openDrawer(c.id);
+      });
+      tr.querySelector('.row-sent').addEventListener('click', function(e){
+        e.stopPropagation();
+        logSent(c);
+      });
+      tbody.appendChild(tr);
+
+      var card = document.createElement('div');
+      card.className = 'card';
+      card.style.setProperty('--row-color', STATUS_META[c.status].color);
+      card.innerHTML =
+        '<div class="card-top">'+
+          '<div><div class="client-name">'+escapeHtml(c.name)+'</div>'+contactLines(c)+'</div>'+
+          statusPill(c.status)+
+        '</div>'+
+        '<div class="card-row"><span>Doors</span><span class="num">'+c.propertiesSent+'/'+c.totalDoors+' · every '+c.cadence+'d</span></div>'+
+        '<div class="card-row"><span>Next due</span><span class="num">'+dueLabel+(daysLabel?(' · '+daysLabel):'')+'</span></div>';
+      card.addEventListener('click', function(e){
+        var copyEl = e.target.closest('.copyable');
+        if(copyEl){ copyToClipboard(copyEl.getAttribute('data-copy'), copyEl.getAttribute('data-copy-label')); return; }
+        openDrawer(c.id);
+      });
+      cards.appendChild(card);
+    });
+
+    document.querySelectorAll('thead th[data-sort]').forEach(function(th){
+      var key = th.getAttribute('data-sort');
+      var arrow = th.querySelector('.arrow');
+      arrow.textContent = state.sortKey === key ? (state.sortDir === 'asc' ? '↑' : '↓') : '';
+    });
+  }
+
+  /* ---------------- Drawer / CRUD ---------------- */
+
+  function openDrawer(id){
+    state.activeId = id;
+    state.isNew = !id;
+    var c = id ? state.clients.find(function(x){ return x.id === id; }) : {
+      name:'', email:'', phone:'', startDate: toISO(startOfToday()), totalDoors:1, propertiesSent:0,
+      cadenceDays: state.settings.sendEveryDays, lastSentDate:null, notes:''
+    };
+    $('drawerTitle').textContent = id ? 'Edit client' : 'New client';
+    $('fName').value = c.name || '';
+    $('fEmail').value = c.email || '';
+    $('fPhone').value = c.phone || '';
+    $('fStart').value = c.startDate || '';
+    $('fTotal').value = c.totalDoors != null ? c.totalDoors : 1;
+    $('fSent').value = c.propertiesSent != null ? c.propertiesSent : 0;
+    setCadenceActive(c.cadenceDays || state.settings.sendEveryDays || 30);
+    $('fNotes').value = c.notes || '';
+
+    $('sentBtn').style.display = id ? '' : 'none';
+    $('backupBtn').style.display = id ? '' : 'none';
+    $('holdBtn').style.display = id ? '' : 'none';
+    $('deleteBtn').style.display = id ? '' : 'none';
+    updateHoldButton(!!c.onHold);
+
+    if(id){
+      $('fLastSent').value = c.lastSentDate || '';
+      renderSummary(c);
+    } else {
+      $('fLastSent').value = '';
+      $('summaryCard').style.display = 'none';
+    }
+
+    $('scrim').classList.add('open');
+    $('drawer').classList.add('open');
+  }
+
+  function updateHoldButton(onHold){
+    var btn = $('holdBtn');
+    btn.classList.toggle('on-hold', !!onHold);
+    var label = onHold ? 'Take off hold' : 'Put on hold';
+    btn.title = label;
+    btn.setAttribute('aria-label', label);
+    btn.innerHTML = onHold
+      ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>'
+      : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+  }
+
+  function renderSummary(c){
+    var summary = $('summaryCard');
+    var d = computeDerived(c, state.settings);
+    summary.style.display = '';
+    var rows = '<div class="summary-row"><span>Status</span>'+statusPill(d.status)+'</div>';
+    if(d.status === 'HOLD'){
+      rows += '<div class="summary-row"><span>Countdown</span><span class="val">Paused</span></div>';
+    } else {
+      rows +=
+        '<div class="summary-row"><span>Next property due</span><span class="val">'+(d.nextDueBy?fmtDate(d.nextDueBy):'—')+'</span></div>'+
+        '<div class="summary-row"><span>Days until due</span><span class="val">'+(d.daysUntilDue!=null?d.daysUntilDue:'—')+'</span></div>';
+    }
+    rows += '<div class="summary-row"><span>Property due every</span><span class="val">'+d.cadence+' days</span></div>';
+    summary.innerHTML = rows;
+  }
+
+  function closeDrawer(){
+    flushAutoSave();
+    $('scrim').classList.remove('open');
+    $('drawer').classList.remove('open');
+    state.activeId = null;
+  }
+
+  function getCadenceActive(){
+    var el = document.querySelector('#cadenceGroup .seg-btn.active');
+    return el ? parseInt(el.getAttribute('data-value'),10) : 30;
+  }
+  function setCadenceActive(value){
+    var n = parseInt(value,10) || 30;
+    var v = String(n <= 37 ? 30 : 45);
+    document.querySelectorAll('#cadenceGroup .seg-btn').forEach(function(btn){
+      btn.classList.toggle('active', btn.getAttribute('data-value') === v);
+    });
+  }
+
+  function readForm(){
+    return {
+      name: $('fName').value.trim(),
+      email: $('fEmail').value.trim(),
+      phone: $('fPhone').value.trim(),
+      startDate: $('fStart').value || null,
+      lastSentDate: $('fLastSent').value || null,
+      totalDoors: Math.max(0, parseInt($('fTotal').value,10) || 0),
+      propertiesSent: Math.max(0, parseInt($('fSent').value,10) || 0),
+      cadenceDays: getCadenceActive(),
+      notes: $('fNotes').value
+    };
+  }
+
+  var pendingSaveTimeout = null;
+
+  function autoSaveNow(){
+    pendingSaveTimeout = null;
+    var data = readForm();
+    if(!data.name) return; // don't create/save nameless drafts
+    if(state.isNew){
+      sb.from(CLIENTS_TABLE).insert(toDbRow(data)).select().single().then(function(res){
+        if(res.error){ showToast('Could not save: '+res.error.message); return; }
+        state.isNew = false;
+        state.activeId = res.data.id;
+        $('drawerTitle').textContent = 'Edit client';
+        $('sentBtn').style.display = '';
+        $('backupBtn').style.display = '';
+        $('holdBtn').style.display = '';
+        $('deleteBtn').style.display = '';
+        fetchAllClients();
+      });
+    } else if(state.activeId){
+      sb.from(CLIENTS_TABLE).update(toDbRow(data)).eq('id', state.activeId).then(function(res){
+        if(res.error){ showToast('Could not save: '+res.error.message); }
+      });
+    }
+  }
+  function scheduleAutoSave(){
+    clearTimeout(pendingSaveTimeout);
+    pendingSaveTimeout = setTimeout(autoSaveNow, 600);
+  }
+  function flushAutoSave(){
+    if(pendingSaveTimeout){
+      clearTimeout(pendingSaveTimeout);
+      pendingSaveTimeout = null;
+      autoSaveNow();
+    }
+  }
+
+  function logSent(c){
+    var next = Math.min((Number(c.propertiesSent)||0) + 1, Number(c.totalDoors)||0);
+    var todayISO = toISO(startOfToday());
+    if(state.activeId === c.id){ $('fSent').value = next; $('fLastSent').value = todayISO; }
+    sb.from(CLIENTS_TABLE).update({ properties_sent: next, last_sent_date: todayISO }).eq('id', c.id).then(function(res){
+      if(res.error){ showToast('Could not update: '+res.error.message); return; }
+      showToast('Marked as sent for '+c.name+'.');
+      fetchAllClients();
+    });
+  }
+
+  function logBackup(c){
+    var prev = Math.max((Number(c.propertiesSent)||0) - 1, 0);
+    var todayISO = toISO(startOfToday());
+    if(state.activeId === c.id){ $('fSent').value = prev; $('fLastSent').value = todayISO; }
+    sb.from(CLIENTS_TABLE).update({ properties_sent: prev, last_sent_date: todayISO }).eq('id', c.id).then(function(res){
+      if(res.error){ showToast('Could not update: '+res.error.message); return; }
+      showToast('Backed out one for '+c.name+' — you still owe them a replacement.');
+      fetchAllClients();
+    });
+  }
+
+  function toggleHold(c){
+    var next = !c.onHold;
+    c.onHold = next;
+    if(state.activeId === c.id){
+      updateHoldButton(next);
+      renderSummary(c);
+    }
+    render();
+    sb.from(CLIENTS_TABLE).update({ on_hold: next }).eq('id', c.id).then(function(res){
+      if(res.error){
+        c.onHold = !next;
+        if(state.activeId === c.id){ updateHoldButton(!next); renderSummary(c); }
+        render();
+        showToast('Could not update: '+res.error.message);
+        return;
+      }
+      showToast(next ? (c.name+' is on hold — countdown paused.') : (c.name+' is active again.'));
+      fetchAllClients();
+    });
+  }
+
+  function confirmDialog(title, body, onOk){
+    $('confirmTitle').textContent = title;
+    $('confirmBody').textContent = body;
+    $('confirmScrim').classList.add('open');
+    var ok = $('confirmOk');
+    var cancel = $('confirmCancel');
+    function cleanup(){
+      $('confirmScrim').classList.remove('open');
+      ok.removeEventListener('click', onOkHandler);
+      cancel.removeEventListener('click', onCancelHandler);
+    }
+    function onOkHandler(){ cleanup(); onOk(); }
+    function onCancelHandler(){ cleanup(); }
+    ok.addEventListener('click', onOkHandler);
+    cancel.addEventListener('click', onCancelHandler);
+  }
+
+  function deleteActive(){
+    if(!state.activeId) return;
+    var c = state.clients.find(function(x){ return x.id === state.activeId; });
+    confirmDialog('Delete '+(c?c.name:'this client')+'?', 'This removes them from the ledger for good. This can\'t be undone.', function(){
+      clearTimeout(pendingSaveTimeout);
+      pendingSaveTimeout = null;
+      sb.from(CLIENTS_TABLE).delete().eq('id', state.activeId).then(function(res){
+        if(res.error){ showToast('Could not delete: '+res.error.message); return; }
+        showToast('Client deleted.');
+        closeDrawer();
+        fetchAllClients();
+      });
+    });
+  }
+
+  /* ---------------- Wiring ---------------- */
+
+  $('addBtn').addEventListener('click', function(){ openDrawer(null); });
+  $('exportBtn').addEventListener('click', exportClientsCsv);
+  $('drawerClose').addEventListener('click', closeDrawer);
+  $('scrim').addEventListener('click', closeDrawer);
+  $('saveBtn').addEventListener('click', closeDrawer);
+  $('deleteBtn').addEventListener('click', deleteActive);
+  $('sentBtn').addEventListener('click', function(){
+    var c = state.clients.find(function(x){ return x.id === state.activeId; });
+    if(c) logSent(c);
+    closeDrawer();
+  });
+  $('backupBtn').addEventListener('click', function(){
+    var c = state.clients.find(function(x){ return x.id === state.activeId; });
+    if(c) logBackup(c);
+    closeDrawer();
+  });
+  $('holdBtn').addEventListener('click', function(){
+    var c = state.clients.find(function(x){ return x.id === state.activeId; });
+    if(c) toggleHold(c);
+  });
+  $('mailBtn').addEventListener('click', function(){
+    var v = $('fEmail').value.trim();
+    if(v) window.open('mailto:'+encodeURIComponent(v), '_blank');
+  });
+  $('callBtn').addEventListener('click', function(){
+    var v = $('fPhone').value.trim();
+    if(v) window.open('tel:'+v.replace(/[^\d+]/g,''), '_blank');
+  });
+
+  $('fPhone').addEventListener('input', handlePhoneInput);
+
+  ['fName','fEmail','fPhone','fTotal','fSent','fNotes'].forEach(function(id){
+    $(id).addEventListener('input', scheduleAutoSave);
+  });
+  ['fStart','fLastSent'].forEach(function(id){
+    $(id).addEventListener('change', scheduleAutoSave);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){
+      closeDrawer();
+    }
+  });
+
+  $('searchInput').addEventListener('input', function(e){
+    state.search = e.target.value;
+    renderRows();
+  });
+
+  document.querySelectorAll('thead th[data-sort]').forEach(function(th){
+    th.addEventListener('click', function(){
+      var key = th.getAttribute('data-sort');
+      if(state.sortKey === key){
+        state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        state.sortKey = key;
+        state.sortDir = 'asc';
+      }
+      renderRows();
+    });
+  });
+
+  document.querySelectorAll('#cadenceGroup .seg-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      setCadenceActive(btn.getAttribute('data-value'));
+      scheduleAutoSave();
+    });
+  });
+
+  /* ---------------- Boot / DB ---------------- */
+
+  var sb = null;
+
+  function fetchAllClients(){
+    sb.from(CLIENTS_TABLE).select('*').order('created_at', { ascending:true }).then(function(res){
+      if(res.error){
+        db = false;
+        setSyncLabel();
+        return;
+      }
+      db = true;
+      state.liveClients = true;
+      state.clients = res.data.map(fromDbRow);
+      render();
+      setSyncLabel();
+    });
+  }
+
+  function boot(){
+    state.clients = SEED_CLIENTS.slice();
+    render();
+
+    if(!window.supabase || !window.supabase.createClient){
+      db = false;
+      setSyncLabel();
+      return;
+    }
+    sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    fetchAllClients();
+    sb.channel('clients-changes')
+      .on('postgres_changes', { event:'*', schema:'public', table:CLIENTS_TABLE }, function(){ fetchAllClients(); })
+      .subscribe();
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>
