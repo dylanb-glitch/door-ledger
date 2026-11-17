@@ -30,6 +30,8 @@
     --complete-soft:#dcefe2;
     --hold:#6b4fa0;
     --hold-soft:#e9e3f5;
+    --give:#2b5db5;
+    --give-soft:#dde8fa;
     --shadow: 0 1px 2px rgba(13,13,13,0.05), 0 10px 28px -14px rgba(27,59,143,0.22);
     --radius: 8px;
     --brand-dark:#0d0d0d;
@@ -66,6 +68,8 @@
       --complete-soft:#1c2f24;
       --hold:#a996d6;
       --hold-soft:#271f3a;
+    --give:#7aa8e8;
+    --give-soft:#1b2a4a;
       --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 28px -14px rgba(0,0,0,0.6);
       --accent-contrast:#0d1220;
     }
@@ -94,6 +98,8 @@
     --complete-soft:#1c2f24;
     --hold:#a996d6;
     --hold-soft:#271f3a;
+    --give:#7aa8e8;
+    --give-soft:#1b2a4a;
     --shadow: 0 1px 2px rgba(0,0,0,0.35), 0 10px 28px -14px rgba(0,0,0,0.6);
     --accent-contrast:#0d1220;
   }
@@ -246,6 +252,8 @@
   .client-sub{ color:var(--ink-faint); font-size:12px; margin-top:1px; }
   .client-sub.copyable{ cursor:pointer; width:fit-content; border-radius:3px; padding:1px 3px; margin:0 0 0 -3px; transition:background .1s, color .1s; }
   .client-sub.copyable:hover{ background:var(--accent-soft); color:var(--accent); }
+  .client-name.copyable{ cursor:pointer; width:fit-content; border-radius:3px; padding:1px 4px; margin:-1px 0 -1px -4px; transition:background .1s, color .1s; }
+  .client-name.copyable:hover{ background:var(--accent-soft); color:var(--accent); }
   .pill{
     display:inline-flex; align-items:center; gap:6px;
     padding:4px 10px; border-radius:999px; font-size:10.5px; font-weight:700;
@@ -331,6 +339,11 @@
   .summary-row span:first-child{ font-weight:600; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-faint); font-family:'DM Sans', sans-serif; }
   .summary-row .val{ font-family:'Cormorant Garamond', Georgia, serif; font-size:18px; color:var(--ink); }
   .summary-row + .summary-row{ border-top:1px solid var(--border); }
+  .summary-actions{ padding:4px 0 12px; border-top:1px solid var(--border); padding-top:10px; }
+  .give-btn{ width:100%; justify-content:center; background:var(--give-soft); border-color:var(--give); color:var(--give); }
+  .give-btn:hover{ background:var(--give-soft); filter:brightness(.97); }
+  .link-btn{ background:none; border:none; padding:0; font:inherit; font-size:11.5px; color:var(--ink-dim); text-decoration:underline; cursor:pointer; }
+  .link-btn:hover{ color:var(--accent); }
   .drawer-foot{
     padding:14px 18px; border-top:1px solid var(--border-soft);
     display:flex; flex-direction:column; gap:8px; flex-shrink:0;
@@ -560,6 +573,7 @@
 
   var STATUS_META = {
     'OVERDUE':        { label:'Overdue',        color:'var(--overdue)',  soft:'var(--overdue-soft)', rank:0 },
+    'GIVE NEXT':      { label:'Give next property', color:'var(--give)', soft:'var(--give-soft)',    rank:0.5 },
     'DUE SOON':       { label:'Due soon',       color:'var(--duesoon)',  soft:'var(--duesoon-soft)', rank:1 },
     'NEEDS PROPERTY': { label:'Needs property', color:'var(--needs)',    soft:'var(--needs-soft)',   rank:2 },
     'DONE FOR NOW':   { label:'Done for now',   color:'var(--done)',     soft:'var(--done-soft)',    rank:3 },
@@ -574,7 +588,8 @@
     { key:'DONE FOR NOW',    label:'Done for now' },
     { key:'COMPLETE',        label:'Complete' },
     { key:'DUE SOON',        label:'Due soon' },
-    { key:'OVERDUE',         label:'Overdue' }
+    { key:'OVERDUE',         label:'Overdue' },
+    { key:'GIVE NEXT',       label:'Give next property' }
   ];
 
   var SEED_CLIENTS = [{"id": "c1", "name": "Bryce Brick", "email": "bbrick789@gmail.com", "phone": "(417) 430-1951", "startDate": "2026-03-26", "totalDoors": 3.0, "propertiesSent": 1.0, "notes": "Wants only St. Louis deals and doesn\u2019t care if it takes longer (3\u20136 months for all deals)."}, {"id": "c2", "name": "Emmanuel Asobo", "email": "Manuasobo@gmail.com", "phone": "(301) 529-5650", "startDate": "2026-03-26", "totalDoors": 3.0, "propertiesSent": 2.0, "notes": "real 2"}, {"id": "c3", "name": "Carrol Lovato", "email": "carrol.lovato@gmail.com", "phone": "", "startDate": "2026-05-11", "totalDoors": 5.0, "propertiesSent": 2.0, "notes": "45 wait to send"}, {"id": "c4", "name": "Shemar McCutchen", "email": "shemar.mccutchen@gmail.com", "phone": "(908) 285-1679", "startDate": "2026-06-10", "totalDoors": 11.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c5", "name": "Rodney I", "email": "irodney65@yahoo.com", "phone": "(808) 747-7428", "startDate": "2026-05-14", "totalDoors": 4.0, "propertiesSent": 3.0, "notes": "actually txt"}, {"id": "c6", "name": "John O'Donohue", "email": "john.odonohue@gmail.com", "phone": "", "startDate": "2026-07-14", "totalDoors": 4.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c7", "name": "Sonny Underwood", "email": "uulala344@gmail.com", "phone": "(817 760-3648", "startDate": "2026-03-19", "totalDoors": 6.0, "propertiesSent": 5.0, "notes": "Wants text - landlord Friendly specific markets . real 5"}, {"id": "c8", "name": "Ivan Gutierrez", "email": "eivang1981@gmail.com", "phone": "(713) 292-8015", "startDate": "2026-03-19", "totalDoors": 6.0, "propertiesSent": 5.0, "notes": ""}, {"id": "c9", "name": "Joann Moore", "email": "joann-m@live.com", "phone": "", "startDate": "2026-07-17", "totalDoors": 3.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c10", "name": "Cody Graffice", "email": "cgraffice@gmail.com", "phone": "(419) 239-8330", "startDate": "2026-04-20", "totalDoors": 12.0, "propertiesSent": 4.0, "notes": "45 days real 10"}, {"id": "c11", "name": "Christine Applyby", "email": "3applebys@gmail.com", "phone": "", "startDate": "2026-06-19", "totalDoors": 4.0, "propertiesSent": 2.0, "notes": "45 real 3"}, {"id": "c12", "name": "Vana Decayo", "email": "vanalynned@gmail.com", "phone": "", "startDate": "2026-08-18", "totalDoors": 2.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c13", "name": "Josh Burstein", "email": "joshburstein@kw.com", "phone": "(845) 282-4667", "startDate": "2026-03-22", "totalDoors": 6.0, "propertiesSent": 5.0, "notes": "No detroit or Memphis. Wants high CF. neeeds back up"}, {"id": "c14", "name": "Sam Austgen", "email": "ssaustgen@gmail.com", "phone": "(317)-438-3352", "startDate": "2026-07-21", "totalDoors": 3.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c15", "name": "Joey Peery", "email": "info@sec8group.com", "phone": "(602) 960-5515", "startDate": "2026-05-24", "totalDoors": 10.0, "propertiesSent": 3.0, "notes": "45 days"}, {"id": "c16", "name": "Ashley Gifford", "email": "ashleyngifford23@gmail.com", "phone": "", "startDate": "2026-08-22", "totalDoors": 2.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c17", "name": "Onazi Abdullahi", "email": "daudabdullahi36@gmail.com", "phone": "", "startDate": "2026-06-25", "totalDoors": 10.0, "propertiesSent": 2.0, "notes": "45 actually text"}, {"id": "c18", "name": "Frank Polk", "email": "b.polksr31@gmail.com", "phone": "(773) 841-9672", "startDate": "2026-07-25", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c19", "name": "Patricio Castro", "email": "PatricioCastrojr@gmail.com", "phone": "", "startDate": "2026-08-24", "totalDoors": 10.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c20", "name": "Noman Chaudhry", "email": "nomanc54@gmail.com", "phone": "", "startDate": "2026-08-24", "totalDoors": 2.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c21", "name": "Maria Danolo", "email": "dr_bingdench@yahoo.com", "phone": "(714) 519-1892", "startDate": "2026-03-28", "totalDoors": 6.0, "propertiesSent": 5.0, "notes": ""}, {"id": "c22", "name": "Jim Siolos", "email": "jimsiolos@gmail.com", "phone": "", "startDate": "2026-07-27", "totalDoors": 3.0, "propertiesSent": 1.0, "notes": ""}, {"id": "c23", "name": "Dany Alissa", "email": "dannyalissa55@gmail.com", "phone": "(714)-399-5662", "startDate": "2026-07-28", "totalDoors": 3.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c24", "name": "Charles Brown", "email": "browncarlito@gmail.com", "phone": "(937) 532-6356", "startDate": "2026-07-28", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45 Send it to Jared"}, {"id": "c25", "name": "Victor Garduno", "email": "elexitoestaenmi@gmail.com", "phone": "(213) 479-1635", "startDate": "2026-07-29", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c26", "name": "Michael Degen", "email": "degenmike2@gmail.com", "phone": "(561) 859-3191", "startDate": "2026-07-29", "totalDoors": 10.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c27", "name": "Van Ardon", "email": "ardonv@gmail.com", "phone": "(561) 644-3928", "startDate": "2026-07-29", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c28", "name": "Eddie Curiel", "email": "alec112196@att.net", "phone": "", "startDate": "2026-07-30", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c29", "name": "Dave Frost", "email": "wildchild220@hotmail.com", "phone": "(201) 538-2130", "startDate": "2026-06-01", "totalDoors": 10.0, "propertiesSent": 3.0, "notes": "Treat good"}, {"id": "c30", "name": "Eleuterio Moreno", "email": "morenojr89@gmail.com", "phone": "(956) 784-1784", "startDate": "2026-06-03", "totalDoors": 4.0, "propertiesSent": 3.0, "notes": ""}, {"id": "c31", "name": "Paul tran", "email": "manchester2350@aol.com", "phone": "(513) 909-5176", "startDate": "2026-09-01", "totalDoors": 10.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c32", "name": "Colton Callaway", "email": "callaway36fox@gmail.com", "phone": "", "startDate": "2026-09-01", "totalDoors": 5.0, "propertiesSent": 0.0, "notes": "45"}, {"id": "c33", "name": "Alina Goodman", "email": "a_gordin@yahoo.com", "phone": "(847) 208-9656", "startDate": "2026-09-01", "totalDoors": 5.0, "propertiesSent": 0.0, "notes": ""}, {"id": "c34", "name": "Julio Alvarez", "email": "juliowldrule@gmail.com", "phone": "", "startDate": "2026-08-03", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "Actually Text"}, {"id": "c35", "name": "Rosalyn Torres", "email": "grosalynn@hotmail.com", "phone": "(602) 803-3010", "startDate": "2026-09-03", "totalDoors": 2.0, "propertiesSent": 0.0, "notes": ""}, {"id": "c36", "name": "George Pratt", "email": "georgepratt67@gmail.com", "phone": "", "startDate": "2026-08-05", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c37", "name": "Shreyas Chaturvedula", "email": "chshreyas03@gmail.com", "phone": "(781) 491-6978", "startDate": "2026-04-11", "totalDoors": 12.0, "propertiesSent": 5.0, "notes": "send afer sep 7th"}, {"id": "c38", "name": "Ed Doran", "email": "doraninc@aol.com", "phone": "", "startDate": "2026-06-10", "totalDoors": 4.0, "propertiesSent": 3.0, "notes": "45 real 2 actually TEXT"}, {"id": "c39", "name": "Alison Burkhardt", "email": "alburk8@gmail.com", "phone": "434-247-0769", "startDate": "2026-08-11", "totalDoors": 2.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c40", "name": "Danielle Mawobe", "email": "daniellemawobe@gmail.com", "phone": "", "startDate": "2026-08-13", "totalDoors": 10.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c41", "name": "Fernando Ugarte", "email": "fau2050@gmail.com", "phone": "(415) 716-3908", "startDate": "2026-04-16", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "45 Days"}, {"id": "c42", "name": "Shaneeka Turner", "email": "turner.shaneeka@aol.com", "phone": "(718) 502-2504", "startDate": "2026-04-18", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "45 Days"}, {"id": "c43", "name": "Ulises Chamorro", "email": "uli862001@gmail.com", "phone": "(747) 294-2208", "startDate": "2026-06-19", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45 - wants text"}, {"id": "c44", "name": "Xander Saponte", "email": "alexandersaponte@gmail.com", "phone": "", "startDate": "2026-04-20", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "45 days real 4"}, {"id": "c45", "name": "Frank Necatera", "email": "frankseliteraceparts@gmail.com", "phone": "", "startDate": "2026-06-24", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c46", "name": "Aoko Nyagwegwe", "email": "aokonyagwegwe@yahoo.com", "phone": "(267) 773-0613", "startDate": "2026-03-27", "totalDoors": 5.0, "propertiesSent": 5.0, "notes": ""}, {"id": "c47", "name": "Brooklyn Bevans", "email": "brooklynbevans@gmail.com", "phone": "(571) 233-0914", "startDate": "2026-07-02", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c48", "name": "Karen Irvin", "email": "Dirvini@live.com", "phone": "(301) 613-8110", "startDate": "2026-07-07", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c49", "name": "Debra Hartwig", "email": "debhartwig@yahoo.com", "phone": "775-777-5862", "startDate": "2026-07-10", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c50", "name": "Eva Noble", "email": "evacnoble@gmail.com", "phone": "(435) 938-8125", "startDate": "2026-06-12", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": "real 1"}, {"id": "c51", "name": "Joey Fuchs", "email": "jfuchs123@gmail.com", "phone": "(919) 780-7248", "startDate": "2026-08-12", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "Needs property by end of Aug"}, {"id": "c52", "name": "Ruzanna Hoove", "email": "ruzhoov@gmail.com", "phone": "(916) 413-5064", "startDate": "2026-06-29", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "45 Hold off for now real 5"}, {"id": "c53", "name": "Guy Bibbs", "email": "guybibbs1@gmail.com", "phone": "(312) 656-6412", "startDate": "2026-03-29", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": ""}, {"id": "c54", "name": "Daniel J Perez", "email": "damienjavierperez0311@gmail.com", "phone": "", "startDate": "2026-06-24", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c55", "name": "Viviana Martinez", "email": "vivi.martinez53@gmail.com", "phone": "(949) 929-6553", "startDate": "2026-05-01", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": "45 Then 60/60 - Text"}, {"id": "c56", "name": "Frank Maccedo", "email": "fmaccedo@gmail.com", "phone": "(786) 302-3739", "startDate": "2026-04-03", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "real 3"}, {"id": "c57", "name": "Brian Korner", "email": "bkorner77@gmail.com", "phone": "(631) 805-0655", "startDate": "2026-03-06", "totalDoors": 5.0, "propertiesSent": 5.0, "notes": "wants a text when aproperty is sent to him"}, {"id": "c58", "name": "Tristen Tyler", "email": "Tylertristen78@icloud.com", "phone": "(817) 559-5573", "startDate": "2026-04-14", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "45 days"}, {"id": "c59", "name": "Donovan", "email": "donovanjadams@gmail.com", "phone": "(310) 272-4529", "startDate": "2026-04-22", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "45"}, {"id": "c60", "name": "Evan Alcala", "email": "ejalcala9@gmail.com", "phone": "(916) 833-7910", "startDate": "2026-04-15", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": "45 Days"}, {"id": "c61", "name": "Ivan Cruz", "email": "ivancruz7991@gmail.com", "phone": "(646-496-5158", "startDate": "2026-03-31", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": ""}, {"id": "c62", "name": "Joshua Yankunze", "email": "joshuayankunzee@gmail.com", "phone": "(325) 794-7301", "startDate": "2026-05-05", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45 days -"}, {"id": "c63", "name": "Conner Smyth", "email": "connersmyth41@gmail.com", "phone": "(469) 534-9496", "startDate": "2026-06-04", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "dont send prop till ~7 days before due"}, {"id": "c64", "name": "Garima Mullick", "email": "garimamullick@gmail.com", "phone": "", "startDate": "2026-05-07", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c65", "name": "Jordan Weinstein", "email": "jnweinstein25@gmail.com", "phone": "(602) 810-3336", "startDate": "2026-03-08", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "Did not want the first property sent to him due to them not answering and the low cash flow, so he wants a backup property. Got a 30-day extension and promised him another property in return.\nReal 3 properties"}, {"id": "c66", "name": "Jack Large", "email": "jlarge@nextjensports.com", "phone": "", "startDate": "2026-03-08", "totalDoors": 4.0, "propertiesSent": 4.0, "notes": "Sent backup"}, {"id": "c67", "name": "Omar Ulanday", "email": "omar_41281@yahoo.com", "phone": "(571) 643-2731", "startDate": "2026-03-26", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": ""}, {"id": "c68", "name": "Reggie Tangonan", "email": "reggiethatsme1@hotmail.com", "phone": "(310) 220-7221", "startDate": "2026-04-29", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45"}, {"id": "c69", "name": "Adam T", "email": "at3saad@gmail.com", "phone": "(313) 799-8310", "startDate": "2026-04-16", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45 Days"}, {"id": "c70", "name": "Dupree Cook", "email": "bishopdupreecook@aol.com", "phone": "(251) 895-4415", "startDate": "2026-04-18", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "45 Days"}, {"id": "c71", "name": "Daquan Dandridge", "email": "daquandandridge3@gmail.com", "phone": "(240) 743-7539", "startDate": "2026-03-01", "totalDoors": 3.0, "propertiesSent": 3.0, "notes": ""}, {"id": "c72", "name": "Alex Shcherbina", "email": "ashcherbina05@gmail.com", "phone": "(660) 287-5427", "startDate": null, "totalDoors": 10.0, "propertiesSent": 1.0, "notes": "Will let me know when to start"}, {"id": "c73", "name": "David Gilinger", "email": "davidgilinger@gmail.com", "phone": "", "startDate": "2026-03-20", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": ""}, {"id": "c74", "name": "Jacob Chavez", "email": "jacobchavez3721@gmail.com", "phone": "(909) 282-7270", "startDate": "2026-03-07", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "Said the first property was sold and wants a backup. Happened on Easter."}, {"id": "c75", "name": "Tyrone Campbell", "email": "tyreckless123@gmail.com", "phone": "(561) 889-7829", "startDate": "2026-03-07", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": ""}, {"id": "c76", "name": "Riley Mcgregor", "email": "rileymcgregor0@gmail.com", "phone": "(631) 377-2544", "startDate": "2026-03-11", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": ""}, {"id": "c77", "name": "Josef Eid", "email": "josefeid21@gmail.com", "phone": "(925) 325-6960", "startDate": "2026-03-13", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "Sent him a property and he did an inspection, which came back pretty bad. Even though we can\u2019t control the inspection results, I said I would make an exception and send a backup property."}, {"id": "c78", "name": "Mark Holder", "email": "holderhomes.mgmt@gmail.com", "phone": "(954) 593-0632", "startDate": "2026-03-02", "totalDoors": 2.0, "propertiesSent": 2.0, "notes": "Sent a property and said it was already sold. Then sent him a backup and it was sold again"}, {"id": "c79", "name": "Richard Nunez", "email": "ricknunez760@gmail.com", "phone": "(760) 504-5163", "startDate": "2026-04-01", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": ""}, {"id": "c80", "name": "Duane Roots", "email": "daroots12@gmail.com", "phone": "(310) 402-7856", "startDate": "2026-03-18", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": ""}, {"id": "c81", "name": "Oscar Reyes", "email": "osethebrose@gmail.com", "phone": "(818) 800-2782", "startDate": null, "totalDoors": 10.0, "propertiesSent": 0.0, "notes": "Will let me know when he wants to start"}, {"id": "c82", "name": "Madden Telles", "email": "maddentelles@yahoo.com", "phone": "(774) 644-2129", "startDate": "2026-03-16", "totalDoors": 1.0, "propertiesSent": 1.0, "notes": "Send a backup within 30 days of 4\\30"}, {"id": "c83", "name": "Courtney Bonin", "email": "courtneybonin@hotmail.com", "phone": "(240) 209-0039", "startDate": null, "totalDoors": 1.0, "propertiesSent": 0.0, "notes": "Will let me know when she wants to start"}];
@@ -624,7 +639,10 @@
       propertiesSent: row.properties_sent,
       cadenceDays: row.cadence_days,
       notes: row.notes || '',
-      onHold: !!row.on_hold
+      onHold: !!row.on_hold,
+      giveNext: !!row.give_next,
+      anchorDate: row.anchor_date || null,
+      anchorSent: row.anchor_sent || 0
     };
   }
 
@@ -743,14 +761,23 @@
     if(client.onHold){
       return { status:'HOLD', nextDueBy:null, daysUntilDue:null, cadence:cadence };
     }
-    var start = parseDate(client.startDate);
-    if(!start || total <= 0){
+    if(client.giveNext){
+      return { status:'GIVE NEXT', nextDueBy:null, daysUntilDue:null, cadence:cadence };
+    }
+    var anchor = parseDate(client.anchorDate);
+    var base = anchor || parseDate(client.startDate);
+    if(!base || total <= 0){
       return { status:'DONE FOR NOW', nextDueBy:null, daysUntilDue:null, cadence:cadence };
     }
     // Fixed slots from the start date: property N is due at start + N*cadence,
-    // regardless of exactly when the previous one went out. Sending one a
-    // little early or late doesn't push later slots around.
-    var nextDueBy = addDays(start, (sent + 1) * cadence);
+    // regardless of exactly when the previous one went out.
+    // After a "give next property" client is marked Sent, an anchor is stored =
+    // the date their next slot is due (send date + cadence) plus the accepted
+    // count at that moment. Later slots follow every cadence days from there,
+    // so the property they were owed doesn't leave them permanently overdue.
+    var nextDueBy = anchor
+      ? addDays(anchor, Math.max(sent - (Number(client.anchorSent) || 0), 0) * cadence)
+      : addDays(base, (sent + 1) * cadence);
     var today = startOfToday();
     var daysUntilDue = daysBetween(nextDueBy, today);
     var status;
@@ -759,7 +786,7 @@
     else if(daysUntilDue <= settings.dueSoonDays) status = 'DUE SOON';
     else if(daysUntilDue <= needsWindow) status = 'NEEDS PROPERTY';
     else status = 'DONE FOR NOW';
-    return { status:status, nextDueBy:nextDueBy, daysUntilDue:daysUntilDue, cadence:cadence };
+    return { status:status, nextDueBy:nextDueBy, daysUntilDue:daysUntilDue, cadence:cadence, restarted:!!anchor };
   }
 
   function enrich(list){
@@ -854,7 +881,7 @@
     var q = state.search.trim().toLowerCase();
     var filtered = enriched.filter(function(c){
       if(state.statusFilter !== 'ALL' && state.statusFilter !== 'ACTIVE' && c.status !== state.statusFilter) return false;
-      if(state.statusFilter === 'ACTIVE' && c.status === 'COMPLETE') return false;
+      if(state.statusFilter === 'ACTIVE' && (c.status === 'COMPLETE' || c.status === 'HOLD')) return false;
       if(!q) return true;
       return (c.name||'').toLowerCase().indexOf(q) > -1 ||
              (c.email||'').toLowerCase().indexOf(q) > -1 ||
@@ -909,7 +936,7 @@
 
     visible.forEach(function(c){
       var pct = c.totalDoors ? Math.min(100, Math.round((c.propertiesSent/c.totalDoors)*100)) : 0;
-      var dueLabel = c.nextDueBy ? fmtDate(c.nextDueBy) : '—';
+      var dueLabel = c.status === 'GIVE NEXT' ? 'Send next' : (c.nextDueBy ? fmtDate(c.nextDueBy) : '—');
       var daysLabel = '';
       if(c.daysUntilDue != null){
         daysLabel = c.daysUntilDue < 0 ? (Math.abs(c.daysUntilDue)+'d overdue') : (c.daysUntilDue===0 ? 'today' : ('in '+c.daysUntilDue+'d'));
@@ -919,7 +946,7 @@
       tr.style.setProperty('--row-color', STATUS_META[c.status].color);
       tr.innerHTML =
         '<td>'+
-          '<div class="client-name">'+escapeHtml(c.name)+'</div>'+
+          '<div class="client-name copyable" data-copy="'+escapeHtml(c.name)+'" data-copy-label="name" title="Click to copy">'+escapeHtml(c.name)+'</div>'+
           contactLines(c)+
         '</td>'+
         '<td class="num">'+(c.startDate ? fmtDate(parseDate(c.startDate)) : '—')+'</td>'+
@@ -954,7 +981,7 @@
       card.style.setProperty('--row-color', STATUS_META[c.status].color);
       card.innerHTML =
         '<div class="card-top">'+
-          '<div><div class="client-name">'+escapeHtml(c.name)+'</div>'+contactLines(c)+'</div>'+
+          '<div><div class="client-name copyable" data-copy="'+escapeHtml(c.name)+'" data-copy-label="name" title="Click to copy">'+escapeHtml(c.name)+'</div>'+contactLines(c)+'</div>'+
           statusPill(c.status)+
         '</div>'+
         '<div class="card-row"><span>Doors</span><span class="num">'+c.propertiesSent+'/'+c.totalDoors+' · every '+c.cadence+'d</span></div>'+
@@ -1029,12 +1056,19 @@
     var rows = '<div class="summary-row"><span>Status</span>'+statusPill(d.status)+'</div>';
     if(d.status === 'HOLD'){
       rows += '<div class="summary-row"><span>Countdown</span><span class="val">Paused</span></div>';
+    } else if(d.status === 'GIVE NEXT'){
+      rows += '<div class="summary-row"><span>Next property</span><span class="val">Ready to send</span></div>';
     } else {
       rows +=
         '<div class="summary-row"><span>Next property due</span><span class="val">'+(d.nextDueBy?fmtDate(d.nextDueBy):'—')+'</span></div>'+
         '<div class="summary-row"><span>Days until due</span><span class="val">'+(d.daysUntilDue!=null?d.daysUntilDue:'—')+'</span></div>';
     }
     rows += '<div class="summary-row"><span>Property due every</span><span class="val">'+d.cadence+' days</span></div>';
+    if(d.status === 'OVERDUE'){
+      rows += '<div class="summary-actions"><button type="button" class="btn give-btn" data-act="give-next" title="Takes them off the overdue list and puts them in the Give next property queue. Marking them Sent restarts their normal schedule.">Not overdue — give next property</button></div>';
+    } else if(d.status === 'GIVE NEXT'){
+      rows += '<div class="summary-actions"><button type="button" class="link-btn" data-act="clear-give-next">Back to normal schedule</button></div>';
+    }
     summary.innerHTML = rows;
   }
 
@@ -1111,9 +1145,17 @@
     var next = Math.min((Number(c.propertiesSent)||0) + 1, Number(c.totalDoors)||0);
     var todayISO = toISO(startOfToday());
     if(state.activeId === c.id){ $('fSent').value = next; $('fLastSent').value = todayISO; }
-    sb.from(CLIENTS_TABLE).update({ properties_sent: next, last_sent_date: todayISO }).eq('id', c.id).then(function(res){
+    var patch = { properties_sent: next, last_sent_date: todayISO };
+    var wasQueued = !!c.giveNext;
+    if(wasQueued){
+      var cadence = Number(c.cadenceDays) || state.settings.sendEveryDays;
+      patch.give_next = false;
+      patch.anchor_date = toISO(addDays(startOfToday(), cadence));
+      patch.anchor_sent = next;
+    }
+    sb.from(CLIENTS_TABLE).update(patch).eq('id', c.id).then(function(res){
       if(res.error){ showToast('Could not update: '+res.error.message); return; }
-      showToast('Marked as sent for '+c.name+'.');
+      showToast(wasQueued ? ('Sent to '+c.name+' — their next one is due in '+(Number(c.cadenceDays) || state.settings.sendEveryDays)+' days.') : ('Marked as sent for '+c.name+'.'));
       fetchAllClients();
     });
   }
@@ -1146,6 +1188,24 @@
         return;
       }
       showToast(next ? (c.name+' is on hold — countdown paused.') : (c.name+' is active again.'));
+      fetchAllClients();
+    });
+  }
+
+  function setGiveNext(c, on){
+    var prev = !!c.giveNext;
+    c.giveNext = on;
+    if(state.activeId === c.id) renderSummary(c);
+    render();
+    sb.from(CLIENTS_TABLE).update({ give_next: on }).eq('id', c.id).then(function(res){
+      if(res.error){
+        c.giveNext = prev;
+        if(state.activeId === c.id) renderSummary(c);
+        render();
+        showToast('Could not update: '+res.error.message);
+        return;
+      }
+      showToast(on ? (c.name+' moved to Give next property.') : (c.name+' is back on the normal schedule.'));
       fetchAllClients();
     });
   }
@@ -1199,6 +1259,14 @@
     var c = state.clients.find(function(x){ return x.id === state.activeId; });
     if(c) logBackup(c);
     closeDrawer();
+  });
+  $('summaryCard').addEventListener('click', function(e){
+    var b = e.target.closest('[data-act]');
+    if(!b) return;
+    var c = state.clients.find(function(x){ return x.id === state.activeId; });
+    if(!c) return;
+    if(b.getAttribute('data-act') === 'give-next') setGiveNext(c, true);
+    else if(b.getAttribute('data-act') === 'clear-give-next') setGiveNext(c, false);
   });
   $('holdBtn').addEventListener('click', function(){
     var c = state.clients.find(function(x){ return x.id === state.activeId; });
